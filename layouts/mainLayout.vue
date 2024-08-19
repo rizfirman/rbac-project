@@ -7,6 +7,16 @@
           <p class="font-inter font-bold text-[15px]">Navbar</p>
         </div>
       </div>
+      <div class="flex">
+        <NuxtLink to="/home" class="flex items-center">
+          <i class="pi pi-home text-[20px] mr-2" />
+          <p class="font-inter font-bold text-[15px]">Home</p>
+        </NuxtLink>
+        <NuxtLink to="/create-user" class="flex items-center ml-5">
+          <i class="pi pi-user-plus text-[20px] mr-2" />
+          <p class="font-inter font-bold text-[15px]">Create User</p>
+        </NuxtLink>
+      </div>
 
       <div class="flex items-center">
         <img
@@ -26,3 +36,9 @@
     </main>
   </div>
 </template>
+
+<style lang="scss">
+.active {
+  color: red;
+}
+</style>
