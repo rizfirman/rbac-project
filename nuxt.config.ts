@@ -27,4 +27,13 @@ export default defineNuxtConfig({
       linkExactActiveClass: 'exact-active',
     },
   },
+  runtimeConfig: {
+    public: {
+      keycloakBaseUrl: process.env.NUXT_PUBLIC_KEYCLOAK_BASE_URL,
+      clientId: process.env.NUXT_PUBLIC_KEYCLOAK_CLIENT_ID,
+      clientSecret: process.env.NUXT_PUBLIC_KEYCLOAK_CLIENT_SECRET,
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
+      apiKey: process.env.NUXT_PUBLIC_API_KEY,
+    },
+  },
 });
