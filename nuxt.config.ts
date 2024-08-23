@@ -30,6 +30,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       keycloakBaseUrl: process.env.NUXT_PUBLIC_KEYCLOAK_BASE_URL,
+      keycloackEndPoint: process.env.NUXT_PUBLIC_KEYCLOAK_ENDPOINT,
+      keyCloackClientId: process.env.NUXT_PUBLIC_KEYCLOAK_CLIENT_ID,
       clientId: process.env.NUXT_PUBLIC_KEYCLOAK_CLIENT_ID,
       clientSecret: process.env.NUXT_PUBLIC_KEYCLOAK_CLIENT_SECRET,
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
