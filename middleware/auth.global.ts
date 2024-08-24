@@ -1,6 +1,9 @@
 import { useAuthStore } from '~/stores/auth';
 
 export default defineNuxtRouteMiddleware((to, from) => {
+  console.log('Global middleware: auth to' + to);
+  console.log('Global middleware: auth from' + from);
+
   const store = useAuthStore();
 
   // Jika pengguna tidak memiliki token dan mencoba mengakses halaman utama, redirect ke login

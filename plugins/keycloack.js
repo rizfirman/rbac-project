@@ -15,6 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   keycloak
     .init({
+      onLoad: 'check-sso', // Ini tidak memaksa login otomatis, hanya memeriksa sesi
       checkLoginIframe: false,
     })
     .then((authenticated) => {
