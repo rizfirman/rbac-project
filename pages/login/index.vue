@@ -17,17 +17,17 @@ import { useAuthStore } from '~/stores/auth';
 const { $keycloak } = useNuxtApp();
 const store = useAuthStore();
 
-onBeforeMount(() => {
-  if (store.accessToken) {
-    navigateTo('/home');
-  }
-});
+// onMounted(() => {
+//   if (store.accessToken) {
+//     navigateTo('/home');
+//   }
+// });
 
 const login = () => {
   const keycloak = $keycloak as any;
   // Memanggil fungsi login dari Keycloak
   keycloak.login({
-    redirectUri: window.location.origin, // Redirect ke URL ini setelah login
+    redirectUri: window.location.origin + '/home', // Redirect ke halaman /home setelah login berhasil
   });
 };
 </script>
