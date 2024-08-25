@@ -26,8 +26,8 @@ const store = useAuthStore();
 const login = () => {
   const keycloak = $keycloak as any;
   // Memanggil fungsi login dari Keycloak
-  keycloak.login({
-    redirectUri: window.location.origin + '/home', // Redirect ke halaman /home setelah login berhasil
+  keycloak.login().then(() => {
+    navigateTo('/home'); // Menggunakan navigateTo dari Nuxt untuk redirect setelah login berhasil
   });
 };
 </script>
