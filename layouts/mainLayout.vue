@@ -1,6 +1,8 @@
 <template>
   <div class="h-screen overflow-hidden">
-    <div class="w-full bg-white h-[72px] flex justify-between items-center pl-5 pr-5">
+    <div
+      class="w-full bg-white h-[72px] flex justify-between items-center pl-5 pr-5"
+    >
       <div class="flex items-center">
         <i class="pi pi-shield text-[50px]" />
         <div class="ml-2">
@@ -8,11 +10,19 @@
         </div>
       </div>
       <div class="flex">
-        <NuxtLink to="/home" class="flex items-center">
+        <NuxtLink
+          to="/home"
+          class="flex items-center"
+          v-if="checkRoles(['admin', 'admin_ticket'])"
+        >
           <i class="pi pi-home text-[20px] mr-2" />
           <p class="font-inter font-bold text-[15px]">Home</p>
         </NuxtLink>
-        <NuxtLink to="/create-user" class="flex items-center ml-5">
+        <NuxtLink
+          to="/create-user"
+          class="flex items-center ml-5"
+          v-if="checkRoles(['admin'])"
+        >
           <i class="pi pi-user-plus text-[20px] mr-2" />
           <p class="font-inter font-bold text-[15px]">Create User</p>
         </NuxtLink>
@@ -31,11 +41,37 @@
         <i class="pi pi-angle-down text-[#525252]"></i>
       </div>
     </div>
-    <main class="flex-grow p-4 transition-all duration-300 ml-2 overflow-y-auto pb-20">
+    <main
+      class="flex-grow p-4 transition-all duration-300 ml-2 overflow-y-auto pb-20"
+    >
       <slot />
     </main>
   </div>
 </template>
+
+<script setup lang="ts">
+// roles decode jwt
+const { $roles } = useNuxtApp();
+const roles = $roles as any;
+const checkRoles = (roleParams: String[]): boolean => {
+  return roleParams.some((item) => roles.includes(item));
+};
+
+// roles menggunakan atribut dari keycloak
+// const { $keycloak } = useNuxtApp();
+// const keycloak = $keycloak as any;
+// const { roles } = keycloak.realmAccess;
+// const checkRoles = (roleParams: String[]): boolean => {
+//   return roleParams.some((item) => roles.includes(item));
+// };
+
+// role menggunakan function hasRealmRole dari keycloak
+// const { $keycloak } = useNuxtApp();
+// const keycloak = $keycloak as any;
+// const checkRoles = (roleParams: String[]): boolean => {
+//   return roleParams.some((item) => keycloak.hasRealmRole(item));
+// };
+</script>
 
 <style lang="scss">
 .active {
