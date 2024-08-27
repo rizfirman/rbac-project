@@ -9,6 +9,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return navigateTo(to.path);
   }
 
+  // jika path mengarah ke "/"
   if (to.path === "/") {
     if (store?.accessToken) {
       return navigateTo("/home");
@@ -17,14 +18,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
   }
 
   // Jika pengguna tidak memiliki token dan mencoba mengakses halaman utama, redirect ke login
-  if (!store?.accessToken && to.path !== "/login") {
-    return navigateTo("/login");
-  }
+  // if (!store?.accessToken && to.path !== "/login") {
+  //   return navigateTo("/login");
+  // }
 
   // Jika pengguna sudah memiliki token dan mencoba mengakses halaman login, redirect ke home
-  if (store?.accessToken && to.path === "/login") {
-    return navigateTo("/home");
-  }
+  // if (store?.accessToken && to.path === "/login") {
+  //   return navigateTo("/home");
+  // }
 
   // Lanjutkan navigasi ke halaman yang diminta
 });
