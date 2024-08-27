@@ -13,9 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth';
+import { useAuthStore } from "~/stores/auth";
 const { $keycloak } = useNuxtApp();
 const store = useAuthStore();
+const route = useRoute();
 
 // onMounted(() => {
 //   if (store.accessToken) {
@@ -26,8 +27,6 @@ const store = useAuthStore();
 const login = () => {
   const keycloak = $keycloak as any;
   // Memanggil fungsi login dari Keycloak
-  keycloak.login().then(() => {
-    navigateTo('/home'); // Menggunakan navigateTo dari Nuxt untuk redirect setelah login berhasil
-  });
+  keycloak.login({ redirectUri: `${window.location.origin}/` });
 };
 </script>
