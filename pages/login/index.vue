@@ -18,11 +18,11 @@ const { $keycloak } = useNuxtApp();
 const store = useAuthStore();
 const route = useRoute();
 
-// onMounted(() => {
-//   if (store.accessToken) {
-//     navigateTo('/home');
-//   }
-// });
+onMounted(() => {
+  if (store.accessToken) {
+    navigateTo('/home');
+  }
+});
 
 const login = () => {
   const keycloak = $keycloak as any;
