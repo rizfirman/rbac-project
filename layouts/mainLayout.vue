@@ -1,8 +1,6 @@
 <template>
   <div class="h-screen overflow-hidden">
-    <div
-      class="w-full bg-white h-[72px] flex justify-between items-center pl-5 pr-5"
-    >
+    <div class="w-full bg-white h-[72px] flex justify-between items-center pl-5 pr-5">
       <div class="flex items-center">
         <i class="pi pi-shield text-[50px]" />
         <div class="ml-2">
@@ -10,21 +8,17 @@
         </div>
       </div>
       <div class="flex">
-        <NuxtLink
-          to="/home"
-          class="flex items-center"
-          v-if="checkRoles(['admin', 'admin_ticket'])"
-        >
+        <NuxtLink to="/home" class="flex items-center" v-if="checkRoles(['admin', 'admin_ticket'])">
           <i class="pi pi-home text-[20px] mr-2" />
           <p class="font-inter font-bold text-[15px]">Home</p>
         </NuxtLink>
-        <NuxtLink
-          to="/create-user"
-          class="flex items-center ml-5"
-          v-if="checkRoles(['admin'])"
-        >
+        <NuxtLink to="/create-user" class="flex items-center ml-5" v-if="checkRoles(['admin'])">
           <i class="pi pi-user-plus text-[20px] mr-2" />
           <p class="font-inter font-bold text-[15px]">Create User</p>
+        </NuxtLink>
+        <NuxtLink to="/user-list" class="flex items-center ml-5" v-if="checkRoles(['admin'])">
+          <i class="pi pi-users text-[20px] mr-2" />
+          <p class="font-inter font-bold text-[15px]">User List</p>
         </NuxtLink>
       </div>
 
@@ -42,9 +36,7 @@
       </div>
     </div>
     <Popover ref="op" @click="logout()">Logout</Popover>
-    <main
-      class="flex-grow p-4 transition-all duration-300 ml-2 overflow-y-auto pb-20"
-    >
+    <main class="flex-grow p-4 transition-all duration-300 ml-2 overflow-y-auto pb-20">
       <slot />
     </main>
   </div>
@@ -52,7 +44,7 @@
 
 <script setup lang="ts">
 // roles decode jwt
-import { useAuthStore } from "~/stores/auth";
+import { useAuthStore } from '~/stores/auth';
 const { $keycloak } = useNuxtApp();
 const { $roles } = useNuxtApp();
 const storeAuth = useAuthStore();
@@ -73,7 +65,7 @@ const logout = () => {
   const keycloak = $keycloak as any;
   keycloak.logout({ redirectUri: `${window.location.origin}/` }).then(() => {
     //remove accessToken and refreshToken from cookie with useCookies
-    storeAuth.setTokens("", "");
+    storeAuth.setTokens('', '');
   });
 };
 
