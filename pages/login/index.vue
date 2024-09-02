@@ -6,8 +6,18 @@
       </div>
 
       <div class="flex justify-center mt-2">
-        <Button label="Login" />
+        <Button label="Login" @click="login()" />
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+// import { useAuth } from "~/composables/useAuth";
+
+const { signIn } = useAuth();
+
+function login() {
+  signIn("keycloak");
+}
+</script>
