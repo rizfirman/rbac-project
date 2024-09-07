@@ -89,9 +89,7 @@ const handleShowDialogEdit = (data: any) => {
 const getUserList = async () => {
   try {
     const response = await useIFetch("/user");
-
     userList.value = response.data.value as ResponseData[];
-    console.log(userList);
   } catch (error) {
     console.error(error);
   }
