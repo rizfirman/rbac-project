@@ -71,7 +71,6 @@
 </template>
 
 <script setup lang="ts">
-// roles decode jwt
 import { useAuthStore } from "~/stores/auth";
 const { $keycloak } = useNuxtApp();
 const keycloak = $keycloak as any;
@@ -120,21 +119,6 @@ const logout = () => {
     storeAuth.setTokens("", "");
   });
 };
-
-// roles menggunakan atribut dari keycloak
-// const { $keycloak } = useNuxtApp();
-// const keycloak = $keycloak as any;
-// const { roles } = keycloak.realmAccess;
-// const checkRoles = (roleParams: String[]): boolean => {
-//   return roleParams.some((item) => roles.includes(item));
-// };
-
-// role menggunakan function hasRealmRole dari keycloak
-// const { $keycloak } = useNuxtApp();
-// const keycloak = $keycloak as any;
-// const checkRoles = (roleParams: String[]): boolean => {
-//   return roleParams.some((item) => keycloak.hasRealmRole(item));
-// };
 </script>
 
 <style lang="scss">
