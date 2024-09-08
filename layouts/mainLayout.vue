@@ -55,7 +55,7 @@
           alt=""
         />
         <div class="ml-2 mr-2">
-          <p class="font-inter font-bold text-[15px]">User</p>
+          <p class="font-inter font-bold text-[15px]">{{ dataUser.name }}</p>
         </div>
 
         <i class="pi pi-angle-down text-[#525252]"></i>
@@ -74,7 +74,7 @@
 // roles decode jwt
 import { useAuthStore } from "~/stores/auth";
 const { $keycloak } = useNuxtApp();
-
+const keycloak = $keycloak as any;
 const storeAuth = useAuthStore();
 const { isPermission } = usePermission();
 const op = ref();
@@ -82,6 +82,15 @@ const op = ref();
 const toggle = (event: any) => {
   op.value.toggle(event);
 };
+
+interface User {
+  email: string;
+  name: string;
+}
+
+const dataUser = ref<User>({ email: "", name: "" });
+
+dataUser.value = keycloak.tokenParsed as User;
 
 const listMenu = [
   {
