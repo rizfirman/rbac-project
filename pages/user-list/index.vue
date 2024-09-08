@@ -10,24 +10,14 @@
               <div class="card flex justify-center">
                 <div class="flex items-center gap-2">
                   <i class="pi pi-times-circle text-red-500 cursor-pointer" />
-                  <i
-                    class="pi pi-user-edit text-green-500 cursor-pointer"
-                    @click="handleShowDialogEdit(data)"
-                  />
+                  <i class="pi pi-user-edit text-green-500 cursor-pointer" @click="handleShowDialogEdit(data)" />
                 </div>
               </div>
             </template>
           </Column>
         </DataTable>
-        <Dialog
-          v-model:visible="visible"
-          modal
-          :header="`Edit User ${userId}`"
-          :style="{ width: '25rem' }"
-        >
-          <span class="text-surface-500 dark:text-surface-400 block mb-8"
-            >Update your information.</span
-          >
+        <Dialog v-model:visible="visible" modal :header="`Edit User ${userId}`" :style="{ width: '25rem' }">
+          <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
           <div class="flex items-center gap-4 mb-4">
             <label for="username" class="font-semibold w-24">Username</label>
             <InputText id="username" class="flex-auto" autocomplete="off" />
@@ -41,20 +31,8 @@
             <InputText id="password" class="flex-auto" autocomplete="off" />
           </div>
           <template #footer>
-            <Button
-              label="Cancel"
-              text
-              severity="secondary"
-              @click="visible = false"
-              autofocus
-            />
-            <Button
-              label="Save"
-              outlined
-              severity="secondary"
-              @click="visible = false"
-              autofocus
-            />
+            <Button label="Cancel" text severity="secondary" @click="visible = false" autofocus />
+            <Button label="Save" outlined severity="secondary" @click="visible = false" autofocus />
           </template>
         </Dialog>
       </div>
@@ -63,7 +41,7 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-  layout: "main-layout",
+  layout: 'main-layout',
 });
 
 const { useIFetch } = useFetchData();
@@ -88,7 +66,9 @@ const handleShowDialogEdit = (data: any) => {
 
 const getUserList = async () => {
   try {
-    const response = await useIFetch("/user");
+    const response = await useIFetch('/user', {
+      method: 'GET',
+    });
     userList.value = response.data.value as ResponseData[];
   } catch (error) {
     console.error(error);
