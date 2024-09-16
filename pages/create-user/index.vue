@@ -79,8 +79,18 @@ const createUser = async () => {
         permissions: permissions.value,
       },
     });
+    console.log('payload', {
+      name: username.value,
+      password: password.value,
+      email: email.value,
+      permissions: permissions.value,
+    });
     console.log(response);
-    toast.add({ severity: 'success', summary: 'Success!', detail: 'Success add new data', life: 3000 });
+    if (response.status.value === 'success') {
+      toast.add({ severity: 'success', summary: 'Success!', detail: 'Success add new data', life: 3000 });
+    } else {
+      toast.add({ severity: 'error', summary: 'Error!', detail: 'Failed add new data', life: 3000 });
+    }
     username.value = '';
     password.value = '';
     email.value = '';
