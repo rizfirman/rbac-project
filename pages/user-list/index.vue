@@ -9,7 +9,8 @@
             <template #body="{ data }">
               <div class="card flex justify-center">
                 <div class="flex items-center gap-2">
-                  <i class="pi pi-times-circle text-red-500 cursor-pointer" />
+                  <i class="pi pi-times-circle text-red-500 cursor-pointer" @click="handleDelete(data.id)" />
+
                   <i class="pi pi-user-edit text-green-500 cursor-pointer" @click="handleShowDialogEdit(data)" />
                 </div>
               </div>
@@ -78,6 +79,19 @@ const getUserList = async () => {
 onMounted(() => {
   getUserList();
 });
+
+const handleDelete = async (id: any) => {
+  console.log(id);
+  try {
+    const response = await useIFetch(`/user/${id}`, {
+      method: 'DELETE',
+    });
+    console.log(response);
+    getUserList();
+  } catch (error) {
+    console.error(error);
+  }
+};
 // const userList = ref([
 //   {
 //     id: 1,
