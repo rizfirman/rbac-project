@@ -1,8 +1,8 @@
-import { useAuthStore } from "~/stores/auth";
+import { useAuthStore } from '~/stores/auth';
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  console.log("Global middleware: auth to" + to.path);
-  console.log("Global middleware: auth from" + from.path);
+  console.log('Global middleware: auth to' + to.path);
+  console.log('Global middleware: auth from' + from.path);
 
   const store = useAuthStore();
   if (to.hash) {
@@ -10,17 +10,17 @@ export default defineNuxtRouteMiddleware((to, from) => {
   }
 
   // jika path mengarah ke "/"
-  if (to.path === "/") {
+  if (to.path === '/') {
     if (store?.accessToken) {
-      return navigateTo("/home");
+      return navigateTo('/home');
     }
-    return navigateTo("/login");
+    return navigateTo('/login');
   }
 
   // Jika pengguna tidak memiliki token dan mencoba mengakses halaman utama, redirect ke login
-  // if (!store?.accessToken && to.path !== "/login") {
-  //   return navigateTo("/login");
-  // }
+  if (!store?.accessToken && to.path !== '/login') {
+    return navigateTo('/login');
+  }
 
   // Jika pengguna sudah memiliki token dan mencoba mengakses halaman login, redirect ke home
   // if (store?.accessToken && to.path === "/login") {

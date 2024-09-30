@@ -7,6 +7,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const decoded = jwtDecode(authStore.accessToken);
     console.log('name', decoded);
     authStore.setRoleName(decoded.name);
+    authStore.setAuthId(decoded.sub);
     nuxtApp.provide('roles', decoded.realm_access.roles);
   }
 });

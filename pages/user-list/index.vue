@@ -9,8 +9,16 @@
             <template #body="{ data }">
               <div class="card flex justify-center">
                 <div class="flex items-center gap-2">
-                  <i class="pi pi-times-circle text-red-500 cursor-pointer" @click="handleShowDialogDelete(data)" />
-                  <i class="pi pi-user-edit text-green-500 cursor-pointer" @click="handleShowDialogEdit(data)" />
+                  <i
+                    v-if="isPermission(['rbac:user-delete'])"
+                    class="pi pi-times-circle text-red-500 cursor-pointer"
+                    @click="handleShowDialogDelete(data)"
+                  />
+                  <i
+                    v-if="isPermission(['rbac:user-update'])"
+                    class="pi pi-user-edit text-green-500 cursor-pointer"
+                    @click="handleShowDialogEdit(data)"
+                  />
                 </div>
               </div>
             </template>
@@ -46,7 +54,8 @@
           <p class="font-bold">{{ userData.id }} - {{ userData.name }}</p>
           <template #footer>
             <Button label="Cancel" text severity="secondary" @click="visibleDialogDelete = false" autofocus />
-            <Button label="Save" outlined severity="secondary" @click="deleteUser(userData.id)" autofocus />
+
+            <Button label="Delete" outlined severity="secondary" @click="deleteUser(userData.id)" autofocus />
           </template>
         </Dialog>
       </div>
@@ -60,6 +69,7 @@ definePageMeta({
 });
 
 const { useIFetch } = useFetchData();
+const { isPermission } = usePermission();
 const toast = useToast();
 const visibleDialogEdit = ref(false);
 const visibleDialogDelete = ref(false);
@@ -69,6 +79,7 @@ interface ResponseData {
   name: string;
   email: string;
   password: string;
+  authId: string;
 }
 const userList = ref<ResponseData[]>([]);
 const userData = ref({
@@ -76,6 +87,7 @@ const userData = ref({
   name: '',
   email: '',
   password: '',
+  authId: '',
 });
 
 const handleShowDialogEdit = (data: any) => {
@@ -115,6 +127,7 @@ const deleteUser = async (idUser: string) => {
         detail: 'Success delete user',
         life: 3000,
       });
+      getUserList();
     } else {
       toast.add({
         severity: 'error',
@@ -122,6 +135,7 @@ const deleteUser = async (idUser: string) => {
         detail: 'Error delete user',
         life: 3000,
       });
+      getUserList();
     }
   } catch (error) {
     console.error(error);
@@ -131,6 +145,7 @@ const deleteUser = async (idUser: string) => {
       detail: 'Error delete user',
       life: 3000,
     });
+    getUserList();
   }
   visibleDialogDelete.value = false;
 };
@@ -142,7 +157,7 @@ const updateUser = async (idUser: string) => {
       body: {
         name: userData.value.name,
         email: userData.value.email,
-        authId: userData.value.id, // perlu makesure id darimana
+        authId: userData.value.authId, // perlu makesure id darimana
       },
     });
     if (response.status.value === 'success') {
@@ -152,6 +167,7 @@ const updateUser = async (idUser: string) => {
         detail: 'Success update user',
         life: 3000,
       });
+      getUserList();
     } else {
       toast.add({
         severity: 'error',
@@ -159,6 +175,7 @@ const updateUser = async (idUser: string) => {
         detail: 'Error update user',
         life: 3000,
       });
+      getUserList();
     }
   } catch (error) {
     console.error(error);
@@ -168,6 +185,7 @@ const updateUser = async (idUser: string) => {
       detail: 'Error update user',
       life: 3000,
     });
+    getUserList();
   }
   visibleDialogEdit.value = false;
 };

@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', {
     refreshExpiresIn: 0,
     expiresIn: 0,
     roleName: '',
+    authId: useCookie('authId').value || '',
   }),
   actions: {
     setTokens(accessToken: string, refreshToken: string) {
@@ -19,6 +20,10 @@ export const useAuthStore = defineStore('auth', {
     },
     setRoleName(roleName: string) {
       this.roleName = roleName;
+    },
+    setAuthId(authId: string) {
+      this.authId = authId;
+      useCookie('authId').value = authId;
     },
   },
 });
